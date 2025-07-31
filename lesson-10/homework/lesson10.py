@@ -21,6 +21,8 @@ class ToDoList:
     def add_task(self, name):
         self.my_ls.append(name)
 
+    
+
     def show_all(self):
         print(f"Your tasks are ")
         for i in self.my_ls:
@@ -197,3 +199,131 @@ def run_cli2():
 if __name__ == '__main__':
     run_cli2()
 
+class Account:
+    def __init__(self, account_number, holder_name):
+        self.account_number = account_number
+        self.holder_name = holder_name
+        self.balance = 0
+
+class Bank:
+    def __init__(self):
+        self.my_ls = []
+        self.account_id = 1
+
+    def add_account(self, holder_name):
+        account = Account(self.account_id, holder_name)
+        self.my_ls.append(account)
+        print(f"Account created. Your ID is {account.account_number}")
+        self.account_id += 1
+
+    def check_balance(self, account_id):
+        account_id = int(account_id)
+        for i in self.my_ls:
+            if i.account_number == account_id:
+                print(i.balance)
+                return
+        print('Account was not found') 
+
+    def deposit(self, account_id, amount):
+        account_id = int(account_id)
+        amount = float(amount)
+        for i in self.my_ls:
+            if i.account_number == account_id:
+                i.balance += amount
+                print(f"The deposited money: {amount} \nYour total balance: {i.balance}")
+                return
+        print('Account was not found')    
+
+    def withdraw(self, account_id, with_amount):
+        account_id = int(account_id)
+        with_amount = float(with_amount)
+        for i in self.my_ls:
+            if i.account_number == account_id:
+                if i.balance >= with_amount:
+                    i.balance -= with_amount
+                    print(f"The withdrawn money: {with_amount} \nYour total balance: {i.balance}")
+                else:
+                    print("Insufficient balance.")
+                return
+        print('Account was not found')
+
+    def transfer(self, account_id, to_account, amount1):
+        account_id = int(account_id)
+        to_account = int(to_account)
+        amount1 = float(amount1)
+
+        sender = None
+        receiver = None
+
+        for account in self.my_ls:
+            if account.account_number == account_id:
+                sender = account
+            elif account.account_number == to_account:
+                receiver = account
+
+        if sender is None or receiver is None:
+            print('Either of accounts were not found')
+            return
+
+        if sender.balance < amount1:
+            print("Insufficient balance for transfer.")
+            return
+
+        sender.balance -= amount1
+        receiver.balance += amount1
+
+        print(f"Transferred {amount1} from {account_id} to {to_account}")
+        print(f"Sender new balance: {sender.balance}")
+        print(f"Receiver new balance: {receiver.balance}")
+
+    def details(self, account_id):
+        account_id = int(account_id)
+        for i in self.my_ls:
+            if i.account_number == account_id:
+                print(f"Account ID: {i.account_number}, Name: {i.holder_name}, Balance: {i.balance}")
+                return
+        print('Account was not found')
+
+def cli():
+    bank = Bank()
+    while True:
+        print("\n===== Bank Menu =====")
+        print("1. Add account")
+        print("2. Check balance")
+        print("3. Deposit money")
+        print("4. Withdraw money")
+        print("5. Exit")
+        choice = input("Enter number: ")
+
+        if choice == '1':
+            holder_name = input("Enter your name: ")
+            bank.add_account(holder_name)
+
+        elif choice == '2':
+            id = input('Enter your ID: ')
+            bank.check_balance(id)
+
+        elif choice == '3':
+            money = input('Enter amount to deposit: ')
+            id = input('Enter your ID: ')
+            bank.deposit(id, money)
+
+        elif choice == '4':
+            id = input("Enter your ID: ")
+            amount = input("Enter amount to withdraw: ")
+            bank.withdraw(id, amount)
+
+        elif choice == '5':
+            print("Exiting the bank system. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please enter a number from 1 to 5.")
+
+if __name__ == '__main__':
+    cli()
+
+
+git add string_utils.py
+git commit -m "Add missing string_utils module"
+git push origin main  # or replace 'main' with your branch name
