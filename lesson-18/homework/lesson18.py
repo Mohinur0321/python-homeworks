@@ -15,13 +15,13 @@ df[df['ans_name']!= 'Scott Boston']
 
 tit = pd.read_csv('titanic.csv')
 
-k = tit[(tit['Sex']== 'female')
+df0 = tit[(tit['Sex']== 'female')
     & (tit['Pclass']==1)
     & (tit['Age'].between(20, 30))
     
 ]
 
-j = tit[
+df1 = tit[
     tit['Fare']>100
 ]
 
@@ -31,16 +31,16 @@ tit[(tit['Survived']== 0)
     
     ]
 
-df = tit[(tit['Embarked']== 'S')
+df2 = tit[(tit['Embarked']== 'S')
     &(tit['Fare'] >= 50)    
     ]
 
-df1 = tit[(tit['Parch'] == 1)
+df3 = tit[(tit['Parch'] == 1)
     &(tit['SibSp'] == 1)
     
     ]
 
-df2 = tit[(tit['Survived']== 1)
+df4 = tit[(tit['Survived']== 1)
     &(tit['Age'] <= 15)
     
     ]
@@ -49,13 +49,12 @@ tit[(tit['Cabin'] != 'NaN')
     &(tit['Fare'] >= 200)    
     ]
 
-df3 = tit[(tit['PassengerId'] % 2 == 1)
+df5 = tit[(tit['PassengerId'] % 2 == 1)
     ]
 
-df4 = tit[(tit['Ticket'].duplicated(keep = False))
+df6 = tit[(tit['Ticket'].duplicated(keep = False))
     ]
 
-df5 = tit[(tit['Name'].str.contains('Miss'))
+df7 = tit[(tit['Name'].str.contains('Miss'))
         &(tit['Pclass']== 1)
     ]
-df5
